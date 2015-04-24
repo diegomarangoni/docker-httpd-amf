@@ -46,7 +46,9 @@ AMF is a suite of tools that allow access to a Device Repository (such as WURFL,
 
 ## Run
 
+```
 docker run -it \
     -v $PWD/amf.conf:/etc/httpd/conf.d/amf.conf \
     -v $PWD/my-app_vhost.conf:/etc/httpd/conf.d/my-app.conf \
     diegomarangoni/apache-amf
+```
