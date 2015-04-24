@@ -11,12 +11,14 @@ AMF is a suite of tools that allow access to a Device Repository (such as WURFL,
 
 - Create a configuration file `amf.conf` within the content (adjust to fit your needs):
 
+```
     PerlSetEnv AMFMobileHome /data/amf
     PerlSetEnv CapabilityList brand_name,model_name,max_image_width
     PerlSetEnv AMFProductionMode true
     PerlSetEnv CacheDirectoryStore /data/cache
     PerlSetEnv ResizeImageDirectory /data/cache
     PerlSetEnv ServerMemCached memcached:11211
+```
 
 - Mount this file as a volume into `/etc/httpd/conf.d/amf.conf`
 - Create a vhost for your application, use this as example:
