@@ -23,6 +23,7 @@ AMF is a suite of tools that allow access to a Device Repository (such as WURFL,
 - Mount this file as a volume into `/etc/httpd/conf.d/amf.conf`
 - Create a vhost for your application, use this as example:
 
+```
     <VirtualHost *:80>
         DocumentRoot /data/app
         Alias /images /data/images
@@ -39,6 +40,7 @@ AMF is a suite of tools that allow access to a Device Repository (such as WURFL,
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
     </VirtualHost>
+```
 
 - Mount this vhost as a volume into `/etc/httpd/conf.d/revive.conf`
 
