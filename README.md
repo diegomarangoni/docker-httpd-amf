@@ -12,34 +12,34 @@ AMF is a suite of tools that allow access to a Device Repository (such as WURFL,
 - Create a configuration file `amf.conf` within the content (adjust to fit your needs):
 
 ```
-    PerlSetEnv AMFMobileHome /data/amf
-    PerlSetEnv CapabilityList brand_name,model_name,max_image_width
-    PerlSetEnv AMFProductionMode true
-    PerlSetEnv CacheDirectoryStore /data/cache
-    PerlSetEnv ResizeImageDirectory /data/cache
-    PerlSetEnv ServerMemCached memcached:11211
+PerlSetEnv AMFMobileHome /data/amf
+PerlSetEnv CapabilityList brand_name,model_name,max_image_width
+PerlSetEnv AMFProductionMode true
+PerlSetEnv CacheDirectoryStore /data/cache
+PerlSetEnv ResizeImageDirectory /data/cache
+PerlSetEnv ServerMemCached memcached:11211
 ```
 
 - Mount this file as a volume into `/etc/httpd/conf.d/amf.conf`
 - Create a vhost for your application, use this as example:
 
 ```
-    <VirtualHost *:80>
-        DocumentRoot /data/app
-        Alias /images /data/images
+<VirtualHost *:80>
+    DocumentRoot /data/app
+    Alias /images /data/images
 
-        PerlTransHandler +Apache2::AMFWURFLFilterMemcached
+    PerlTransHandler +Apache2::AMFWURFLFilterMemcached
 
-        <Location /images/*>
-            Require all granted
+    <Location /images/*>
+        Require all granted
 
-            SetHandler modperl
-            PerlOutputFilterHandler Apache2::AMFImageRendering
-        </Location>
+        SetHandler modperl
+        PerlOutputFilterHandler Apache2::AMFImageRendering
+    </Location>
 
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-    </VirtualHost>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
 ```
 
 - Mount this vhost as a volume into `/etc/httpd/conf.d/revive.conf`
