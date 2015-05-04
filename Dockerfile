@@ -3,30 +3,21 @@ FROM centos:7
 RUN yum install -y epel-release \
     && yum update -y \
     && yum install -y \
-        freetype freetype-devel gcc giflib giflib-devel httpd libjpeg libjpeg-devel make mod_perl perl \
-        perl-Cache-Cache perl-Cache-Memcached perl-CGI perl-CPAN perl-CPANPLUS perl-Digest-SHA1 perl-Error \
-        perl-Image-Base perl-Image-Info perl-IO-Compress-Zlib perl-libwww-perl perl-local-lib \
-        perl-LWP-Protocol-https perl-Test-NoWarnings perl-Test-Simple perl-Test-Tester perl-YAML tar wget \
-        zlib zlib-devel \
+        freetype freetype-devel gcc gd gd-devel giflib giflib-devel httpd libjpeg libjpeg-devel libpng \
+        libpng-devel make mod_perl perl perl-Cache-Cache perl-Cache-Memcached perl-CGI perl-CPAN \
+        perl-CPANPLUS perl-Digest-SHA1 perl-Error perl-GD perl-Image-Base perl-Image-Info \
+        perl-IO-Compress-Zlib perl-libwww-perl perl-local-lib perl-LWP-Protocol-https perl-Test-NoWarnings \
+        perl-Test-Simple perl-Test-Tester perl-YAML tar wget zlib zlib-devel \
     && yum -y clean all
 
-RUN mkdir /tmp/deps && cd $_ \
-    && wget --content-disposition http://sourceforge.net/projects/libpng/files/libpng12/1.2.53/libpng-1.2.53.tar.gz/download \
-    && wget https://github.com/libgd/libgd/archive/GD_2_0_33.tar.gz \
-    && SORT_CREATED="--format=single-column --sort=time --time=ctime --reverse" \
-    && for file in `ls *gz $SORT_CREATED`; do tar -zxf $file; done \
-    && mv libgd-GD_2_0_33/src/* libgd-GD_2_0_33/
-    && for dir in `ls -d */ $SORT_CREATED`; do cd $dir && ./configure && make && make install && cd ..; done \
-    && rm -rf /tmp/deps
-
 RUN mkdir /tmp/amf && cd $_ \
-    && wget http://search.cpan.org/CPAN/authors/id/L/LD/LDS/GD-2.56.tar.gz \
     && wget http://search.cpan.org/CPAN/authors/id/S/SH/SHERZODR/Image-Resize-0.5.tar.gz \
     && wget http://search.cpan.org/CPAN/authors/id/A/AG/AGRUNDMA/Image-Scale-0.08.tar.gz \
     && wget http://search.cpan.org/CPAN/authors/id/T/TO/TONYC/Imager-1.002.tar.gz \
     && wget --content-disposition http://sourceforge.net/projects/mobilefilter/files/ApacheMobileFilter/4.03/Apache2-ApacheMobileFilter-4.03.tar.gz/download \
     && SORT_CREATED="--format=single-column --sort=time --time=ctime --reverse" \
     && for file in `ls *gz $SORT_CREATED`; do tar -zxf $file; done \
+    && sed -i 's/png_memcpy/memcpy/g' Image-Scale-0.08/src/png.c \
     && for dir in `ls -d */ $SORT_CREATED`; do cd $dir && perl Makefile.PL && make && make install && cd ..; done \
     && rm -rf /tmp/amf
 
