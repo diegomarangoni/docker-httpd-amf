@@ -25,7 +25,7 @@ RUN mkdir /tmp/wurfl && cd $_ \
     && gzip -d wurfl-2.3.5.xml.gz \
     && mkdir -p /data/amf \
     && mv wurfl-2.3.5.xml /data/amf/wurfl.xml \
-    && rm -rf /tmp/amf
+    && rm -rf /tmp/wurfl
 
 RUN echo 'OPTIONS="-D FOREGROUND" ' >> /etc/sysconfig/httpd
 
