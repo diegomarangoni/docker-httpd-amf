@@ -3,9 +3,9 @@ FROM centos:7
 RUN yum install -y epel-release \
     && yum update -y \
     && yum install -y \
-        freetype freetype-devel gcc gd gd-devel giflib giflib-devel httpd libjpeg libjpeg-devel libpng \
-        libpng-devel make mod_perl perl perl-Cache-Cache perl-Cache-Memcached perl-CGI perl-CPAN \
-        perl-CPANPLUS perl-Digest-SHA1 perl-Error perl-GD perl-Image-Base perl-Image-Info \
+        freetype freetype-devel gcc giflib giflib-devel httpd libjpeg libjpeg-devel libpng12 \
+        libpng12-devel make mod_perl perl perl-Cache-Cache perl-Cache-Memcached perl-CGI perl-CPAN \
+        perl-CPANPLUS perl-Digest-SHA1 perl-Error perl-Image-Base perl-Image-Info \
         perl-IO-Compress-Zlib perl-libwww-perl perl-local-lib perl-LWP-Protocol-https perl-Test-NoWarnings \
         perl-Test-Simple perl-Test-Tester perl-YAML tar wget zlib zlib-devel \
     && yum -y clean all
