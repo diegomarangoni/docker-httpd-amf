@@ -28,6 +28,8 @@ RUN mkdir /tmp/wurfl && cd $_ \
     && mv wurfl-2.3.5.xml /data/amf/wurfl.xml \
     && rm -rf /tmp/wurfl
 
+RUN sed -ri 's!^(\s*CustomLog)\s+\S+!\1 /proc/self/fd/1!g; s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g;' /etc/httpd/conf/httpd.conf
+
 RUN echo 'OPTIONS="-D FOREGROUND" ' >> /etc/sysconfig/httpd
 
 ENV APACHE_RUN_USER root
